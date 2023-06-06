@@ -5,17 +5,16 @@ import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.util.List;
-import java.util.UUID;
 
 @Entity
 @Table(name = "clientes")
 @Getter @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 public class ClienteEntity {
     @Id
-    private UUID idCliente;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long idCliente;
 
     @Column(nullable = false)
     private String nombre;
@@ -23,17 +22,21 @@ public class ClienteEntity {
     @Column(nullable = false)
     private String apellido;
 
-    @NotNull
+    @Column(nullable = false)
     private String dni;
 
-    @NotNull
+    @Column(nullable = false)
     private String email;
-    private String domicilio; // crear clase Domicilio
-    private String telefono; // crear clase Telefono (caracteristica, prefijo, sufijo) ?
 
-    @OneToMany
+    @Column(nullable = false)
+    private String domicilio;
+
+    private String telefono;
+
+    @OneToMany(mappedBy = "titular")
     private List<CuentaEntity> cuentasPropias;
-    @ManyToMany
+
+    @OneToMany(mappedBy = "cotitular")
     private List<CuentaEntity> cuentasCotituladas;
 
 }

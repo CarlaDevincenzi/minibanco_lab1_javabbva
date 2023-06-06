@@ -16,22 +16,25 @@ import java.util.UUID;
 @NoArgsConstructor
 public class CuentaEntity {
     @Id
-    @Column(nullable = false, unique = true)
+    @GeneratedValue(generator = "UUID")
     private UUID numeroCuenta;
+
     @Column(nullable = false)
     private BigDecimal saldo;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private MonedaEnum moneda;
 
+    @ManyToOne
+    @JoinColumn(name = "titular_id")
+    private ClienteEntity titular;
 
     @ManyToOne
-    private UUID titular;
+    @JoinColumn(name = "cotitular_id")
+    private ClienteEntity cotitular;
 
-    @ManyToMany
-    private List<UUID> cotitulares;
-
-    @OneToMany(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<UUID> historialTransacciones;
+    @OneToMany(mappedBy = "cuenta", fetch=FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<TransaccionEntity> historialTransacciones;
 
 }

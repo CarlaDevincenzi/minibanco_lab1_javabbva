@@ -26,6 +26,6 @@ public class Cuenta {
     @PositiveOrZero
     private BigDecimal saldo;
     private UUID titular;
-    private List<UUID> cotitulares;
+    private UUID cotitular;
     private List<UUID> historialTransacciones;
 }

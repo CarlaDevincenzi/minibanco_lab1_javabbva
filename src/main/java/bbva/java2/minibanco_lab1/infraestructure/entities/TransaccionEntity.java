@@ -28,9 +28,11 @@ public class TransaccionEntity {
     @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime diahoraTransaccion;
 
-    private UUID cuentaOrigen;
+    @ManyToOne
+    @JoinColumn(name = "cuenta_id")
+    private CuentaEntity cuenta;
 
-    private UUID cuentaDestino;
+    private String descripcion;
 
     private BigDecimal monto;
 }

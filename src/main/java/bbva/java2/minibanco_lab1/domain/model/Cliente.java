@@ -9,17 +9,14 @@ import java.util.UUID;
 @Getter @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 public class Cliente {
 
-    @Builder.Default
-    private UUID idCliente = UUID.randomUUID();
+    private Long idCliente;
     private String nombre;
     private String apellido;
     private String dni;
     private String email;
-    private String domicilio; // crear clase Domicilio ?
-    private String telefono; // crear clase Telefono (caracteristica, prefijo, sufijo) ?
-    private List<UUID> cuentasPropias;
-    private List<UUID> cuentasCotituladas;
+    private String domicilio;
+    private String telefono;
+    private List<UUID> cuentas;
 }
