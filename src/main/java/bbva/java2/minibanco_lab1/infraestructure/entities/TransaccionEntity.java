@@ -17,13 +17,13 @@ import java.util.UUID;
 @AllArgsConstructor
 public class TransaccionEntity {
     @Id
-    @GeneratedValue(generator = "UUID")
-    private UUID idTransaccion;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long idTransaccion;
 
     @Enumerated(value = EnumType.STRING)
     private TipoTransaccionEnum tipoTransaccion;
 
-    private UUID idCliente;
+    private Long idCliente;
 
     @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime diahoraTransaccion;

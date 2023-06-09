@@ -16,8 +16,11 @@ import java.util.UUID;
 @NoArgsConstructor
 public class CuentaEntity {
     @Id
-    @GeneratedValue(generator = "UUID")
-    private UUID numeroCuenta;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long idCuenta;
+
+    @Column(nullable = false)
+    private String numeroCuenta;
 
     @Column(nullable = false)
     private BigDecimal saldo;

@@ -10,13 +10,12 @@ import java.util.UUID;
 @Getter @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 public class Transaccion {
-    private UUID idTransaccion;
+    private Long idTransaccion;
     private TipoTransaccionEnum tipoTransaccion;
-    private UUID idCliente;
+    private Long idCliente;
     private LocalDateTime diahoraTransaccion;
-    private UUID cuentaOrigen;
-    private UUID cuentaDestino;
+    private String cuentaOrigen;
+    private String cuentaDestino;
     private BigDecimal monto;
 }

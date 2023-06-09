@@ -14,18 +14,15 @@ import java.util.UUID;
 @Getter @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 public class Cuenta {
 
-    @NotNull
-    @Builder.Default
-    private UUID numeroCuenta = UUID.randomUUID();
+    private Long idCuenta;
+    private String numeroCuenta;
     @Enumerated(EnumType.STRING)
-    @NotNull
     private MonedaEnum moneda;
     @PositiveOrZero
     private BigDecimal saldo;
-    private UUID titular;
-    private UUID cotitular;
-    private List<UUID> historialTransacciones;
+    private Long titular;
+    private Long cotitular;
+    private List<Long> historialTransacciones;
 }

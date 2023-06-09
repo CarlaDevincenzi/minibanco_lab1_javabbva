@@ -14,7 +14,7 @@ public interface IClienteRepository {
     boolean existeClientePorEmail(String email);
     boolean existeClientePorDni(String dni);
     Cliente actualizarCliente(Cliente cliente);
-    Cliente agregarCuenta(Cliente cliente, Cuenta cuenta);
+    Cliente agregarCuenta(Cliente cliente, Cuenta cuenta, boolean titualar);
 }
 
 

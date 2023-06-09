@@ -9,23 +9,28 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/minibanco")
+@RequestMapping("/minibanco/cliente")
 @RequiredArgsConstructor
 public class ClienteController {
-    //private final IClienteRepository clienteRepository;
+
     private final IClienteUseCase clienteUseCase;
     private final ClientePresentacionMapper clientePresentacionMapper;
 
-    @PostMapping(value = "/crear-cliente", consumes = "application/json", produces = "application/json")
+    @PostMapping(value = "/crear", consumes = "application/json", produces = "application/json")
     public ResponseEntity<?> crearCliente(@Valid @RequestBody ClienteCreateReq clienteCreateReq) {
-        //Cliente cliente = clientePresentacionMapper.requestToDomain(clienteCreateReq);
-        return new ResponseEntity<>(clienteUseCase.guardarCliente(clienteCreateReq), HttpStatus.OK);
+        Cliente cliente = clientePresentacionMapper.requestToDomain(clienteCreateReq);
+
+        return new ResponseEntity<>(clienteUseCase.guardarCliente(cliente), HttpStatus.OK);
     }
+
+    @GetMapping(value = "/listar/{id}", produces = "application/json")
+    public ResponseEntity<?> listarUnCliente(@PathVariable Long id) {
+
+        return new ResponseEntity<>(clienteUseCase.listarUnCliente(id).get(), HttpStatus.OK);
+    }
+
 
 }

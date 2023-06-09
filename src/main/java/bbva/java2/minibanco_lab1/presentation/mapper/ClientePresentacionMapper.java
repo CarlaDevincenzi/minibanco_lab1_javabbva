@@ -29,7 +29,7 @@ public class ClientePresentacionMapper {
         clienteResponse.setDni(cliente.getDni());
         clienteResponse.setEmail(cliente.getEmail());
         clienteResponse.setDomicilio(cliente.getDomicilio());
-        clienteResponse.setTelefono(cliente.getTelefono());
+        clienteResponse.setTelefono(cliente.getTelefono() != null ? cliente.getTelefono() : "------");
 
         return clienteResponse;
     }

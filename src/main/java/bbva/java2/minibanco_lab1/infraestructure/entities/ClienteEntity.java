@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -33,10 +34,10 @@ public class ClienteEntity {
 
     private String telefono;
 
-    @OneToMany(mappedBy = "titular")
+    @OneToMany(mappedBy = "titular", fetch = FetchType.LAZY)
     private List<CuentaEntity> cuentasPropias;
 
-    @OneToMany(mappedBy = "cotitular")
+    @OneToMany(mappedBy = "cotitular", fetch = FetchType.LAZY)
     private List<CuentaEntity> cuentasCotituladas;
 
 }

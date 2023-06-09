@@ -3,11 +3,11 @@ package bbva.java2.minibanco_lab1.domain.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
+
 
 @Getter @Setter
-@AllArgsConstructor
 @NoArgsConstructor
 public class Cliente {
 
@@ -18,5 +18,6 @@ public class Cliente {
     private String email;
     private String domicilio;
     private String telefono;
-    private List<UUID> cuentas;
+    private List<Long> cuentasPropias = new ArrayList<>();
+    private List<Long> cuentasCotituladas = new ArrayList<>();
 }
