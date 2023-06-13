@@ -15,7 +15,7 @@ public class Transaccion {
     private TipoTransaccionEnum tipoTransaccion;
     private Long idCliente;
     private LocalDateTime diahoraTransaccion;
-    private String cuentaOrigen;
+    private Long cuentaOrigen;
     private String cuentaDestino;
     private BigDecimal monto;
 }

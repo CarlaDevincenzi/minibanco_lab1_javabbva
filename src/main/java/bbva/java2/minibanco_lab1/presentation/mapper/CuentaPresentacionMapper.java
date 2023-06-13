@@ -2,7 +2,8 @@ package bbva.java2.minibanco_lab1.presentation.mapper;
 
 import bbva.java2.minibanco_lab1.domain.model.Cuenta;
 import bbva.java2.minibanco_lab1.presentation.request.cuentaReq.CuentaCreateReq;
-import bbva.java2.minibanco_lab1.presentation.response.cuentaResp.CuentaResponse;
+import bbva.java2.minibanco_lab1.presentation.response.cuentaResp.CuentaCreateResp;
+import bbva.java2.minibanco_lab1.presentation.response.cuentaResp.CuentaSimpleResp;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -17,16 +18,20 @@ public class CuentaPresentacionMapper {
         return cuenta;
     }
 
-    public CuentaResponse domainToResponse(Cuenta cuenta) {
-        CuentaResponse cuentaResponse = new CuentaResponse();
-        cuentaResponse.setIdCuenta(cuenta.getIdCuenta());
-        cuentaResponse.setNumeroCuenta(cuenta.getNumeroCuenta());
-        cuentaResponse.setMoneda(cuenta.getMoneda());
-        cuentaResponse.setSaldo(cuenta.getSaldo());
-        cuentaResponse.setTitular(cuenta.getTitular());
-        cuentaResponse.setCotitular(cuenta.getCotitular() != null ? cuenta.getCotitular() : 0L);
+    public CuentaCreateResp domainToResponse(Cuenta cuenta) {
+        return new CuentaCreateResp(cuenta.getIdCuenta(),
+                cuenta.getNumeroCuenta(),
+                cuenta.getMoneda(),
+                cuenta.getSaldo(),
+                cuenta.getTitular(),
+                cuenta.getCotitular() != null ? cuenta.getCotitular() : -1L);
 
-        return cuentaResponse;
+    }
+
+    public CuentaSimpleResp domainToSimpleResponse(Cuenta cuenta) {
+        return new CuentaSimpleResp(cuenta.getNumeroCuenta(),
+                                    cuenta.getMoneda(),
+                                    cuenta.getSaldo());
     }
 
 }

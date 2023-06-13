@@ -20,4 +20,13 @@ public class Cliente {
     private String telefono;
     private List<Long> cuentasPropias = new ArrayList<>();
     private List<Long> cuentasCotituladas = new ArrayList<>();
+
+    public Cliente(String nombre, String apellido, String dni, String email, String domicilio, String telefono) {
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.dni = dni;
+        this.email = email;
+        this.domicilio = domicilio;
+        this.telefono = telefono;
+    }
 }

@@ -5,16 +5,16 @@ import bbva.java2.minibanco_lab1.domain.model.Cuenta;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 public interface IClienteRepository {
     Cliente guardarCliente(Cliente cliente);
     List<Cliente> listarClientes();
     Optional<Cliente> buscarClientePorId(Long idCliente);
+    Optional<Cliente> buscaClientePorDni(String dni);
     boolean existeClientePorEmail(String email);
     boolean existeClientePorDni(String dni);
     Cliente actualizarCliente(Cliente cliente);
-    Cliente agregarCuenta(Cliente cliente, Cuenta cuenta, boolean titualar);
+
 }
 
 

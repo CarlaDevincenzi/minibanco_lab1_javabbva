@@ -1,8 +1,7 @@
 package bbva.java2.minibanco_lab1.presentation.controller;
 
-import bbva.java2.minibanco_lab1.application.repository.IClienteRepository;
+
 import bbva.java2.minibanco_lab1.application.usecase.IClienteUseCase;
-import bbva.java2.minibanco_lab1.domain.model.Cliente;
 import bbva.java2.minibanco_lab1.presentation.mapper.ClientePresentacionMapper;
 import bbva.java2.minibanco_lab1.presentation.request.clienteReq.ClienteCreateReq;
 import jakarta.validation.Valid;
@@ -21,15 +20,14 @@ public class ClienteController {
 
     @PostMapping(value = "/crear", consumes = "application/json", produces = "application/json")
     public ResponseEntity<?> crearCliente(@Valid @RequestBody ClienteCreateReq clienteCreateReq) {
-        Cliente cliente = clientePresentacionMapper.requestToDomain(clienteCreateReq);
 
-        return new ResponseEntity<>(clienteUseCase.guardarCliente(cliente), HttpStatus.OK);
+        return new ResponseEntity<>(clienteUseCase.guardarCliente(clienteCreateReq), HttpStatus.OK);
     }
 
-    @GetMapping(value = "/listar/{id}", produces = "application/json")
-    public ResponseEntity<?> listarUnCliente(@PathVariable Long id) {
+    @GetMapping(value = "/listar/{dni}", produces = "application/json")
+    public ResponseEntity<?> listarUnCliente(@PathVariable String dni) {
 
-        return new ResponseEntity<>(clienteUseCase.listarUnCliente(id).get(), HttpStatus.OK);
+        return new ResponseEntity<>(clienteUseCase.listarUnClienteConCuentas(dni), HttpStatus.OK);
     }
 
 

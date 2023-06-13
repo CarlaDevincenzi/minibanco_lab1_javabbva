@@ -1,36 +1,54 @@
 package bbva.java2.minibanco_lab1.presentation.mapper;
 
 import bbva.java2.minibanco_lab1.domain.model.Cliente;
+import bbva.java2.minibanco_lab1.domain.model.Cuenta;
 import bbva.java2.minibanco_lab1.presentation.request.clienteReq.ClienteCreateReq;
-import bbva.java2.minibanco_lab1.presentation.response.clienteResp.ClienteResponse;
+import bbva.java2.minibanco_lab1.presentation.response.clienteResp.ClienteCreateResp;
+import bbva.java2.minibanco_lab1.presentation.response.clienteResp.ClienteCuentasResp;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
+@RequiredArgsConstructor
 public class ClientePresentacionMapper {
+
+    private final CuentaPresentacionMapper cuentaMapper;
     public Cliente requestToDomain(ClienteCreateReq clienteReq) {
-        Cliente cliente = new Cliente();
-
-        cliente.setNombre(clienteReq.getNombre());
-        cliente.setApellido(clienteReq.getApellido());
-        cliente.setDni(clienteReq.getDni());
-        cliente.setEmail(clienteReq.getEmail());
-        cliente.setDomicilio(clienteReq.getDomicilio());
-        cliente.setTelefono(clienteReq.getTelefono());
-
-        return cliente;
+        return new Cliente(clienteReq.getNombre(),
+                clienteReq.getApellido(),
+                clienteReq.getDni(),
+                clienteReq.getEmail(),
+                clienteReq.getDomicilio(),
+                clienteReq.getTelefono());
     }
 
-    public ClienteResponse domainToResponse(Cliente cliente) {
-        ClienteResponse clienteResponse = new ClienteResponse();
+    public ClienteCreateResp domainToCreateResponse(Cliente cliente) {
+        return new ClienteCreateResp(cliente.getIdCliente(),
+                                            cliente.getNombre(),
+                                            cliente.getApellido(),
+                                            cliente.getDni(),
+                                            cliente.getEmail(),
+                                            cliente.getDomicilio(),
+                                            cliente.getTelefono() != null ? cliente.getTelefono() : "------");
 
-        clienteResponse.setIdCliente(cliente.getIdCliente());
-        clienteResponse.setNombre(cliente.getNombre());
-        clienteResponse.setApellido(cliente.getApellido());
-        clienteResponse.setDni(cliente.getDni());
-        clienteResponse.setEmail(cliente.getEmail());
-        clienteResponse.setDomicilio(cliente.getDomicilio());
-        clienteResponse.setTelefono(cliente.getTelefono() != null ? cliente.getTelefono() : "------");
+    }
 
-        return clienteResponse;
+    public ClienteCuentasResp domainToClienteCuentasResponse(Cliente cliente, List<Cuenta> propias, List<Cuenta> cotituladas) {
+        ClienteCuentasResp clienteCuentasResp = new ClienteCuentasResp();
+
+        clienteCuentasResp.setClienteCreateResp(domainToCreateResponse(cliente));
+        clienteCuentasResp.setCuentasPropias(propias
+                .stream()
+                .map(cta -> cuentaMapper.domainToSimpleResponse(cta))
+                .toList());
+
+        clienteCuentasResp.setCuentasCotituladas(cotituladas
+                .stream()
+                .map(cta -> cuentaMapper.domainToSimpleResponse(cta))
+                .toList());
+
+        return clienteCuentasResp;
     }
 }

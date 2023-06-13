@@ -1,10 +1,14 @@
 package bbva.java2.minibanco_lab1.presentation.response.clienteResp;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter @Setter
-public class ClienteResponse {
+@NoArgsConstructor
+@AllArgsConstructor
+public class ClienteCreateResp {
 
     private Long idCliente;
     private String nombre;

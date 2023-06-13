@@ -9,8 +9,8 @@ import jakarta.validation.constraints.PositiveOrZero;
 import lombok.*;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 @Getter @Setter
 @NoArgsConstructor
 @AllArgsConstructor
@@ -24,5 +24,5 @@ public class Cuenta {
     private BigDecimal saldo;
     private Long titular;
     private Long cotitular;
-    private List<Long> historialTransacciones;
+    private List<Long> historialTransacciones = new ArrayList<>();
 }
