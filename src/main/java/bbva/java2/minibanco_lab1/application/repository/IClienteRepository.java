@@ -13,6 +13,7 @@ public interface IClienteRepository {
     Optional<Cliente> buscaClientePorDni(String dni);
     boolean existeClientePorEmail(String email);
     boolean existeClientePorDni(String dni);
+    boolean existeClientePorId(Long id);
     Cliente actualizarCliente(Cliente cliente);
 
 }

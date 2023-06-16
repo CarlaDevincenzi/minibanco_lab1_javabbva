@@ -4,6 +4,7 @@ import bbva.java2.minibanco_lab1.domain.model.Cuenta;
 import bbva.java2.minibanco_lab1.presentation.request.cuentaReq.CuentaCreateReq;
 import bbva.java2.minibanco_lab1.presentation.response.cuentaResp.CuentaCreateResp;
 import bbva.java2.minibanco_lab1.presentation.response.cuentaResp.CuentaSimpleResp;
+import bbva.java2.minibanco_lab1.presentation.response.cuentaResp.CuentaTransaccionesResp;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -32,6 +33,11 @@ public class CuentaPresentacionMapper {
         return new CuentaSimpleResp(cuenta.getNumeroCuenta(),
                                     cuenta.getMoneda(),
                                     cuenta.getSaldo());
+    }
+
+    public CuentaTransaccionesResp domainToCuentaTransaccionesResponse(Cuenta cuenta) {
+        return new CuentaTransaccionesResp(this.domainToSimpleResponse(cuenta),
+                cuenta.getHistorialTransacciones());
     }
 
 }

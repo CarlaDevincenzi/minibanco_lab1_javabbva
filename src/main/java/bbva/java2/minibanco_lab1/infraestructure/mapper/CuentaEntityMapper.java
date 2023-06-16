@@ -1,10 +1,10 @@
 package bbva.java2.minibanco_lab1.infraestructure.mapper;
 
-import bbva.java2.minibanco_lab1.application.repository.IClienteRepository;
 import bbva.java2.minibanco_lab1.domain.model.Cuenta;
 import bbva.java2.minibanco_lab1.infraestructure.entities.ClienteEntity;
 import bbva.java2.minibanco_lab1.infraestructure.entities.CuentaEntity;
 import bbva.java2.minibanco_lab1.infraestructure.repositoryImpl.springdatajpa.IClienteSpringRepository;
+import bbva.java2.minibanco_lab1.infraestructure.repositoryImpl.springdatajpa.ITransaccionSpringRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 public class CuentaEntityMapper {
 
     private final IClienteSpringRepository clienteRepository;
+    private final ITransaccionSpringRepository trSpringRepository;
     public CuentaEntity domainToEntity(Cuenta cuenta) {
         CuentaEntity cuentaEntity = new CuentaEntity();
 
@@ -27,20 +28,27 @@ public class CuentaEntityMapper {
             ClienteEntity cotitular = clienteRepository.findById(cuenta.getCotitular()).get();
             cuentaEntity.setCotitular(cotitular);
         }
+
+        cuentaEntity.setHistorialTransacciones(
+                cuenta.getHistorialTransacciones().stream()
+                        .map(tr -> trSpringRepository.findById(tr).get())
+                        .toList());
+
         return cuentaEntity;
     }
 
     public Cuenta entityToDomain(CuentaEntity cuentaEntity) {
-        Cuenta cuenta = new Cuenta();
-        cuenta.setIdCuenta(cuentaEntity.getIdCuenta());
-        cuenta.setNumeroCuenta(cuentaEntity.getNumeroCuenta());
-        cuenta.setMoneda(cuentaEntity.getMoneda());
-        cuenta.setSaldo(cuentaEntity.getSaldo());
-        cuenta.setTitular(cuentaEntity.getTitular().getIdCliente());
-        cuenta.setCotitular(cuentaEntity.getCotitular() != null ?
-                cuentaEntity.getCotitular().getIdCliente() : null);
+        return new Cuenta(cuentaEntity.getIdCuenta(),
+                cuentaEntity.getNumeroCuenta(),
+                cuentaEntity.getMoneda(),
+                cuentaEntity.getSaldo(),
+                cuentaEntity.getTitular().getIdCliente(),
+                cuentaEntity.getCotitular() != null ?
+                        cuentaEntity.getCotitular().getIdCliente() : null,
+                cuentaEntity.getHistorialTransacciones().stream()
+                        .map(tr -> tr.getIdTransaccion())
+                        .toList());
 
-        return cuenta;
     }
 
 }

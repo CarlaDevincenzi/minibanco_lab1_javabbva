@@ -21,7 +21,6 @@ public class ClienteRepositoryImpl implements IClienteRepository {
 
     private final IClienteSpringRepository clienteSpringRepository;
     private final ClienteEntityMapper clienteMapper;
-    private final CuentaEntityMapper cuentaMapper;
 
     @Override
     public Cliente guardarCliente(Cliente cliente) {
@@ -70,6 +69,11 @@ public class ClienteRepositoryImpl implements IClienteRepository {
     @Override
     public boolean existeClientePorDni(String dni) {
         return clienteSpringRepository.existsByDni(dni);
+    }
+
+    @Override
+    public boolean existeClientePorId(Long id) {
+        return clienteSpringRepository.existsById(id);
     }
 
     @Override

@@ -3,12 +3,15 @@ package bbva.java2.minibanco_lab1.application.serviceImpl;
 import bbva.java2.minibanco_lab1.application.repository.IClienteRepository;
 import bbva.java2.minibanco_lab1.application.repository.ICuentaRepository;
 import bbva.java2.minibanco_lab1.application.usecase.ICuentaUseCase;
+import bbva.java2.minibanco_lab1.domain.enums.TipoTransaccionEnum;
 import bbva.java2.minibanco_lab1.domain.model.Cliente;
 import bbva.java2.minibanco_lab1.domain.model.Cuenta;
 import bbva.java2.minibanco_lab1.presentation.mapper.CuentaPresentacionMapper;
 import bbva.java2.minibanco_lab1.presentation.request.cuentaReq.CuentaAddCotitularReq;
 import bbva.java2.minibanco_lab1.presentation.request.cuentaReq.CuentaCreateReq;
 import bbva.java2.minibanco_lab1.presentation.response.cuentaResp.CuentaCreateResp;
+import bbva.java2.minibanco_lab1.presentation.response.cuentaResp.CuentaTransaccionesResp;
+import bbva.java2.minibanco_lab1.presentation.response.exception.DineroInsuficienteException;
 import bbva.java2.minibanco_lab1.presentation.response.exception.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -24,6 +27,7 @@ public class CuentaServiceImpl implements ICuentaUseCase {
     private final ICuentaRepository cuentaRepository;
     private final IClienteRepository clienteRepository;
     private final CuentaPresentacionMapper cuentaPresentacionMapper;
+
     @Override
     public CuentaCreateResp guardarCuenta(CuentaCreateReq cuentaReq) {
         Optional<Cliente> titular = clienteRepository.buscarClientePorId(cuentaReq.getTitular());
@@ -43,14 +47,34 @@ public class CuentaServiceImpl implements ICuentaUseCase {
 
     @Override
     public CuentaCreateResp agregarCotitularAcuenta(CuentaAddCotitularReq addCotitularReq) {
-        Cuenta cuenta = buscarCuentaPorId(addCotitularReq.getIdCuenta());
-        Optional<Cliente> cotitular = clienteRepository.buscarClientePorId(addCotitularReq.getIdCotitular());
-        if(cotitular.isPresent()) {
-            cuenta.setCotitular(addCotitularReq.getIdCotitular());
-            cuenta = cuentaRepository.guardarCuenta(cuenta);
+        if(clienteRepository.existeClientePorId(addCotitularReq.getIdCotitular())) {
+            Cuenta cuenta = cuentaRepository.updateCuentaCotitular(addCotitularReq.getIdCuenta(),
+                    addCotitularReq.getIdCotitular());
             return cuentaPresentacionMapper.domainToResponse(cuenta);
         } else {
-               throw new NotFoundException("El cotitular ingresado no se encuentra registrado");
+            throw new NotFoundException("El cotitular ingresado no se encuentra registrado");
+        }
+    }
+    @Override
+    public void updateMonto(Long idCuenta, BigDecimal monto, TipoTransaccionEnum tipoTr) {
+        Optional<Cuenta> cuentaOp = cuentaRepository.buscarCuentaPorId(idCuenta);
+
+        if(cuentaOp.isPresent()) {
+            BigDecimal montoActual = new BigDecimal("0.0");
+            Cuenta cuenta = cuentaOp.get();
+            if(tipoTr.equals(TipoTransaccionEnum.DEBITO)) {
+                if((cuenta.getSaldo().subtract(monto)).compareTo(BigDecimal.ZERO) < 0) {
+                    throw new DineroInsuficienteException("La cuenta no posee fondos para realizar la operacion");
+                } else {
+                    montoActual = cuenta.getSaldo().subtract(monto);
+                }
+            } else if(tipoTr.equals(TipoTransaccionEnum.DEPOSITO)) {
+                montoActual = cuenta.getSaldo().add(monto);
+            }
+            cuentaRepository.updateMonto(idCuenta, montoActual);
+        } else {
+            // FIX: puede que no haga falta
+            throw new NotFoundException("La cuenta no se encuentra registrada");
         }
     }
 
@@ -61,6 +85,13 @@ public class CuentaServiceImpl implements ICuentaUseCase {
             throw new NotFoundException("El id ingresado no pertenece a una cuenta registrada");
         }
         return cuentaOptional.get();
+    }
+
+    @Override
+    public CuentaTransaccionesResp mostrarUnaCuentaConTransacciones(Long id) {
+        Cuenta cuenta = buscarCuentaPorId(id);
+
+        return cuentaPresentacionMapper.domainToCuentaTransaccionesResponse(cuenta);
     }
 
 }

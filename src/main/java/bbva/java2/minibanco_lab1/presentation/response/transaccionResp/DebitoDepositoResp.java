@@ -1,15 +1,17 @@
-package bbva.java2.minibanco_lab1.domain.model;
+package bbva.java2.minibanco_lab1.presentation.response.transaccionResp;
 
 import bbva.java2.minibanco_lab1.domain.enums.TipoTransaccionEnum;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-
 @Getter @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Transaccion {
+public class DebitoDepositoResp {
     private Long idTransaccion;
     private TipoTransaccionEnum tipoTransaccion;
     private Long idCliente;
@@ -17,12 +19,4 @@ public class Transaccion {
     private Long cuentaOrigen;
     private String descripcion;
     private BigDecimal monto;
-
-    public Transaccion(TipoTransaccionEnum tipoTransaccion, Long idCliente, Long cuentaOrigen, String descripcion, BigDecimal monto) {
-        this.tipoTransaccion = tipoTransaccion;
-        this.idCliente = idCliente;
-        this.cuentaOrigen = cuentaOrigen;
-        this.descripcion = descripcion;
-        this.monto = monto;
-    }
 }

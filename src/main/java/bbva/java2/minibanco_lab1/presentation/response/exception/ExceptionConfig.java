@@ -21,6 +21,13 @@ public class ExceptionConfig {
 
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
     }
+
+    @ExceptionHandler(DineroInsuficienteException.class)
+    public ResponseEntity<?> dineroInsuficienteException(DineroInsuficienteException ex){
+
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<?> validacionErronea(MethodArgumentNotValidException ex){
 

@@ -37,7 +37,7 @@ public class CuentaEntity {
     @JoinColumn(name = "cotitular_id")
     private ClienteEntity cotitular;
 
-    @OneToMany(mappedBy = "cuenta", fetch=FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "cuentaOrigen", fetch=FetchType.LAZY, cascade = CascadeType.ALL)
     private List<TransaccionEntity> historialTransacciones;
 
 }

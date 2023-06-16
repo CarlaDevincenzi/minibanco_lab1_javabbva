@@ -6,13 +6,10 @@ import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 @Entity
 @Table(name = "transacciones")
-@Getter
-@Setter
-@Builder
+@Getter @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class TransaccionEntity {
@@ -23,6 +20,7 @@ public class TransaccionEntity {
     @Enumerated(value = EnumType.STRING)
     private TipoTransaccionEnum tipoTransaccion;
 
+    @Column(nullable = false)
     private Long idCliente;
 
     @Temporal(TemporalType.TIMESTAMP)
@@ -30,9 +28,21 @@ public class TransaccionEntity {
 
     @ManyToOne
     @JoinColumn(name = "cuenta_id")
-    private CuentaEntity cuenta;
+    private CuentaEntity cuentaOrigen;
 
+    @Column(nullable = false)
     private String descripcion;
 
+    @Column(nullable = false)
     private BigDecimal monto;
+
+    public TransaccionEntity(TipoTransaccionEnum tipoTransaccion, Long idCliente, LocalDateTime diahoraTransaccion,
+                             CuentaEntity cuenta, String descripcion, BigDecimal monto) {
+        this.tipoTransaccion = tipoTransaccion;
+        this.idCliente = idCliente;
+        this.diahoraTransaccion = diahoraTransaccion;
+        this.cuentaOrigen = cuenta;
+        this.descripcion = descripcion;
+        this.monto = monto;
+    }
 }
