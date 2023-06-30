@@ -1,12 +1,10 @@
 package bbva.java2.minibanco_lab1.infraestructure.entities;
 
 import bbva.java2.minibanco_lab1.domain.enums.MonedaEnum;
-import jakarta.persistence.*;
 import lombok.*;
-
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.UUID;
 
 @Entity
 @Table(name = "cuentas")

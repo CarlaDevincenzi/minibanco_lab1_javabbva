@@ -4,11 +4,13 @@ import bbva.java2.minibanco_lab1.application.usecase.ICuentaUseCase;
 import bbva.java2.minibanco_lab1.presentation.mapper.CuentaPresentacionMapper;
 import bbva.java2.minibanco_lab1.presentation.request.cuentaReq.CuentaAddCotitularReq;
 import bbva.java2.minibanco_lab1.presentation.request.cuentaReq.CuentaCreateReq;
-import jakarta.validation.Valid;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/minibanco/cuenta")

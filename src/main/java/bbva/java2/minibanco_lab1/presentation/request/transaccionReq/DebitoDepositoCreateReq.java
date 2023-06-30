@@ -1,12 +1,13 @@
 package bbva.java2.minibanco_lab1.presentation.request.transaccionReq;
 
 import bbva.java2.minibanco_lab1.domain.enums.TipoTransaccionEnum;
-import jakarta.validation.constraints.NotNull;
+import javax.validation.constraints.NotNull;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.math.BigDecimal;
 
-@Getter
+@Getter @Setter
 public class DebitoDepositoCreateReq {
 
     @NotNull(message = "Debe especificarse el tipo de transaccion")

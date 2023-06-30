@@ -61,4 +61,16 @@ public class CuentaRepositoryImpl implements ICuentaRepository {
 
         return cuentaOptional;
     }
+
+    @Override
+    public Optional<Cuenta> buscarCuentaPorNumeroCuenta(String numeroCta) {
+        Optional<CuentaEntity> cuentaEntity = cuentaSpringRepository.findByNumeroCuenta(numeroCta);
+        Optional<Cuenta> cuentaOptional = Optional.empty();
+
+        if(cuentaEntity.isPresent()) {
+            cuentaOptional = Optional.ofNullable(cuentaEntityMapper.entityToDomain(cuentaEntity.get()));
+        }
+
+        return cuentaOptional;
+    }
 }

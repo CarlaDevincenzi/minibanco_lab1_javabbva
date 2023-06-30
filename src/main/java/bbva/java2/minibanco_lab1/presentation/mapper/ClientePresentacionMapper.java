@@ -20,6 +20,7 @@ public class ClientePresentacionMapper {
                 clienteReq.getApellido(),
                 clienteReq.getDni(),
                 clienteReq.getEmail(),
+                clienteReq.getContrasenia(),
                 clienteReq.getDomicilio(),
                 clienteReq.getTelefono());
     }

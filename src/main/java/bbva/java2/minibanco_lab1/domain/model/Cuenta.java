@@ -1,13 +1,10 @@
 package bbva.java2.minibanco_lab1.domain.model;
 
 import bbva.java2.minibanco_lab1.domain.enums.MonedaEnum;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.ManyToOne;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.PositiveOrZero;
 import lombok.*;
-
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.validation.constraints.PositiveOrZero;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;

@@ -1,10 +1,8 @@
 package bbva.java2.minibanco_lab1.infraestructure.entities;
 
-import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
-import java.util.ArrayList;
+import javax.persistence.*;
 import java.util.List;
 
 @Entity
@@ -28,6 +26,9 @@ public class ClienteEntity {
 
     @Column(nullable = false)
     private String email;
+
+    @Column(nullable = false)
+    private String contrasenia;
 
     @Column(nullable = false)
     private String domicilio;

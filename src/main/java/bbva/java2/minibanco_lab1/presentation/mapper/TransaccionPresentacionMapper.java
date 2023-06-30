@@ -4,6 +4,7 @@ package bbva.java2.minibanco_lab1.presentation.mapper;
 import bbva.java2.minibanco_lab1.domain.model.Transaccion;
 import bbva.java2.minibanco_lab1.presentation.request.transaccionReq.DebitoDepositoCreateReq;
 import bbva.java2.minibanco_lab1.presentation.response.transaccionResp.DebitoDepositoResp;
+import bbva.java2.minibanco_lab1.presentation.response.transaccionResp.TransferenciaResp;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -16,7 +17,7 @@ public class TransaccionPresentacionMapper {
                 req.getMonto());
     }
 
-    public DebitoDepositoResp DomainToDebitoDepositoResponse(Transaccion resp) {
+    public DebitoDepositoResp domainToDebitoDepositoResponse(Transaccion resp) {
         return new DebitoDepositoResp(resp.getIdTransaccion(),
                 resp.getTipoTransaccion(),
                 resp.getIdCliente(),

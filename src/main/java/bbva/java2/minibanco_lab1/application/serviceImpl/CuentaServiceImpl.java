@@ -62,18 +62,17 @@ public class CuentaServiceImpl implements ICuentaUseCase {
         if(cuentaOp.isPresent()) {
             BigDecimal montoActual = new BigDecimal("0.0");
             Cuenta cuenta = cuentaOp.get();
-            if(tipoTr.equals(TipoTransaccionEnum.DEBITO)) {
+            if(tipoTr.equals(TipoTransaccionEnum.DEBITO) || tipoTr.equals(TipoTransaccionEnum.TRANSFERENCIA_DEBITO)) {
                 if((cuenta.getSaldo().subtract(monto)).compareTo(BigDecimal.ZERO) < 0) {
                     throw new DineroInsuficienteException("La cuenta no posee fondos para realizar la operacion");
                 } else {
                     montoActual = cuenta.getSaldo().subtract(monto);
                 }
-            } else if(tipoTr.equals(TipoTransaccionEnum.DEPOSITO)) {
+            } else if(tipoTr.equals(TipoTransaccionEnum.DEPOSITO) || tipoTr.equals(TipoTransaccionEnum.TRANSFERENCIA_CREDITO)) {
                 montoActual = cuenta.getSaldo().add(monto);
             }
             cuentaRepository.updateMonto(idCuenta, montoActual);
         } else {
-            // FIX: puede que no haga falta
             throw new NotFoundException("La cuenta no se encuentra registrada");
         }
     }
@@ -92,6 +91,14 @@ public class CuentaServiceImpl implements ICuentaUseCase {
         Cuenta cuenta = buscarCuentaPorId(id);
 
         return cuentaPresentacionMapper.domainToCuentaTransaccionesResponse(cuenta);
+    }
+
+    public Cuenta buscarCuentaPorNumero(String numeroCta) {
+        Optional<Cuenta> cuentaOptional = cuentaRepository.buscarCuentaPorNumeroCuenta(numeroCta);
+        if(cuentaOptional.isEmpty()) {
+            throw new NotFoundException("El numero de cuenta ingresado no pertenece a una cuenta registrada");
+        }
+        return cuentaOptional.get();
     }
 
 }

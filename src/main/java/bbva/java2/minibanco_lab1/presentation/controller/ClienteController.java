@@ -4,11 +4,12 @@ package bbva.java2.minibanco_lab1.presentation.controller;
 import bbva.java2.minibanco_lab1.application.usecase.IClienteUseCase;
 import bbva.java2.minibanco_lab1.presentation.mapper.ClientePresentacionMapper;
 import bbva.java2.minibanco_lab1.presentation.request.clienteReq.ClienteCreateReq;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/minibanco/cliente")

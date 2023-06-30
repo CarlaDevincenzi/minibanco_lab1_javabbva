@@ -1,7 +1,7 @@
 package bbva.java2.minibanco_lab1.infraestructure.entities;
 
 import bbva.java2.minibanco_lab1.domain.enums.TipoTransaccionEnum;
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.*;
 
 import java.math.BigDecimal;
@@ -23,7 +23,7 @@ public class TransaccionEntity {
     @Column(nullable = false)
     private Long idCliente;
 
-    @Temporal(TemporalType.TIMESTAMP)
+    @Column(columnDefinition = "TIMESTAMP")
     private LocalDateTime diahoraTransaccion;
 
     @ManyToOne

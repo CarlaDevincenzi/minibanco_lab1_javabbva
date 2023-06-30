@@ -25,6 +25,7 @@ public class ClienteEntityMapper {
         clienteEntity.setApellido(cliente.getApellido());
         clienteEntity.setDni(cliente.getDni());
         clienteEntity.setEmail(cliente.getEmail());
+        clienteEntity.setContrasenia(cliente.getContrasenia());
         clienteEntity.setDomicilio(cliente.getDomicilio());
         clienteEntity.setTelefono(cliente.getTelefono());
 
@@ -53,6 +54,7 @@ public class ClienteEntityMapper {
         cliente.setApellido(clienteEntity.getApellido());
         cliente.setDni(clienteEntity.getDni());
         cliente.setEmail(clienteEntity.getEmail());
+        cliente.setContrasenia(clienteEntity.getContrasenia());
         cliente.setDomicilio(clienteEntity.getDomicilio());
         cliente.setTelefono(clienteEntity.getTelefono());
 

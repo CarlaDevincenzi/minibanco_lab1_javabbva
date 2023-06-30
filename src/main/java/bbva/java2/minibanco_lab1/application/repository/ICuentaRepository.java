@@ -11,5 +11,6 @@ public interface ICuentaRepository {
     Cuenta updateCuentaCotitular(Long idCuenta, Long idCotitular);
     void updateMonto(Long idCuenta, BigDecimal monto);
     Optional<Cuenta> buscarCuentaPorId(Long id);
+    Optional<Cuenta> buscarCuentaPorNumeroCuenta(String numeroCta);
 
 }

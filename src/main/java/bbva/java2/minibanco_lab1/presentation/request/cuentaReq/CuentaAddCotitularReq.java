@@ -1,8 +1,10 @@
 package bbva.java2.minibanco_lab1.presentation.request.cuentaReq;
 
-import jakarta.validation.constraints.NotNull;
+
 import lombok.Getter;
 import lombok.Setter;
+
+import javax.validation.constraints.NotNull;
 
 @Getter
 @Setter

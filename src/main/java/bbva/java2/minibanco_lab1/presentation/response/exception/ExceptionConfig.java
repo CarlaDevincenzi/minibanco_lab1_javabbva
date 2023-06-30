@@ -38,4 +38,5 @@ public class ExceptionConfig {
 
         return new ResponseEntity<>(errores, HttpStatus.BAD_REQUEST);
     }
+
 }
