@@ -2,6 +2,9 @@ package bbva.java2.minibanco_lab1.infraestructure.entities;
 
 import bbva.java2.minibanco_lab1.domain.enums.MonedaEnum;
 import lombok.*;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.List;
@@ -35,7 +38,9 @@ public class CuentaEntity {
     @JoinColumn(name = "cotitular_id")
     private ClienteEntity cotitular;
 
-    @OneToMany(mappedBy = "cuentaOrigen", fetch=FetchType.LAZY, cascade = CascadeType.ALL)
+    //@OneToMany(mappedBy = "cuentaOrigen", fetch=FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "cuentaOrigen", fetch=FetchType.EAGER, cascade = CascadeType.ALL)
+    @Fetch(value = FetchMode.SUBSELECT)
     private List<TransaccionEntity> historialTransacciones;
 
 }

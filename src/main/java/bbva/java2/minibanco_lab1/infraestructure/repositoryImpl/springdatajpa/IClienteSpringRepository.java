@@ -12,4 +12,5 @@ public interface IClienteSpringRepository extends JpaRepository<ClienteEntity, L
     boolean existsByDni(String dni);
     boolean existsByEmail(String mail);
     Optional<ClienteEntity> findByDni(String dni);
+    Optional<ClienteEntity> findByEmail(String email);
 }

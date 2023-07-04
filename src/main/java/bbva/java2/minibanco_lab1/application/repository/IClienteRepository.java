@@ -11,6 +11,7 @@ public interface IClienteRepository {
     List<Cliente> listarClientes();
     Optional<Cliente> buscarClientePorId(Long idCliente);
     Optional<Cliente> buscaClientePorDni(String dni);
+    Cliente buscaClientePorEmail(String email);
     boolean existeClientePorEmail(String email);
     boolean existeClientePorDni(String dni);
     boolean existeClientePorId(Long id);

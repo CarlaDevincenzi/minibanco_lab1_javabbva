@@ -26,12 +26,9 @@ public class Cliente {
         this.apellido = apellido;
         this.dni = dni;
         this.email = email;
-        this.setContrasenia(contrasenia);
+        this.contrasenia = contrasenia;
         this.domicilio = domicilio;
         this.telefono = telefono;
     }
 
-    public void setContrasenia(String contrasenia) {
-        this.contrasenia = new BCryptPasswordEncoder().encode(contrasenia);
-    }
 }

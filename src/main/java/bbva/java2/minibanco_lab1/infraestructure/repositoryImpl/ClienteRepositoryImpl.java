@@ -62,6 +62,30 @@ public class ClienteRepositoryImpl implements IClienteRepository {
     }
 
     @Override
+    public Cliente buscaClientePorEmail(String email) {
+        Optional<ClienteEntity> clienteEntity = clienteSpringRepository.findByEmail(email);
+        Cliente cliente = null;
+
+        if(clienteEntity.isPresent()) {
+            cliente = clienteMapper.entityToDomain(clienteEntity.get());
+        }
+
+        return cliente;
+    }
+
+//    @Override
+//    public Optional<Cliente> buscaClientePorEmail(String email) {
+//        Optional<ClienteEntity> clienteEntity = clienteSpringRepository.findByEmail(email);
+//        Optional<Cliente> clienteOptional = Optional.empty();
+//
+//        if(clienteEntity.isPresent()) {
+//            clienteOptional = Optional.ofNullable(clienteMapper.entityToDomain(clienteEntity.get()));
+//        }
+//
+//        return clienteOptional;
+//    }
+
+    @Override
     public boolean existeClientePorEmail(String email) {
         return clienteSpringRepository.existsByEmail(email);
     }

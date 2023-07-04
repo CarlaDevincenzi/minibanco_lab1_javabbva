@@ -1,8 +1,11 @@
 package bbva.java2.minibanco_lab1.infraestructure.entities;
 
 import lombok.*;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -35,10 +38,14 @@ public class ClienteEntity {
 
     private String telefono;
 
-    @OneToMany(mappedBy = "titular", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "titular", fetch = FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
+    //@OneToMany(mappedBy = "titular", fetch = FetchType.LAZY)
     private List<CuentaEntity> cuentasPropias;
 
-    @OneToMany(mappedBy = "cotitular", fetch = FetchType.LAZY)
+    //@OneToMany(mappedBy = "cotitular", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "cotitular", fetch = FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
     private List<CuentaEntity> cuentasCotituladas;
 
 }

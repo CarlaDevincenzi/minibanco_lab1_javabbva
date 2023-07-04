@@ -13,6 +13,8 @@ import bbva.java2.minibanco_lab1.presentation.response.exception.UsuarioExistent
 import bbva.java2.minibanco_lab1.presentation.mapper.ClientePresentacionMapper;
 import bbva.java2.minibanco_lab1.presentation.response.clienteResp.ClienteCreateResp;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,6 +27,7 @@ public class ClienteServiceImpl implements IClienteUseCase {
     private final ClientePresentacionMapper clientePresentacionMapper;
     private final IClienteRepository clienteRepository;
     private final ICuentaUseCase cuentaService;
+    private final PasswordEncoder passwordEncoder;
     @Override
     public ClienteCreateResp guardarCliente(ClienteCreateReq clienteReq) {
         boolean existecliente = clienteRepository.existeClientePorDni(clienteReq.getDni())
@@ -34,6 +37,7 @@ public class ClienteServiceImpl implements IClienteUseCase {
             throw new UsuarioExistenteException("El usuario ya se encuentra registrado");
         }
         Cliente cliente = clientePresentacionMapper.requestToDomain(clienteReq);
+        cliente.setContrasenia(passwordEncoder.encode(clienteReq.getContrasenia()));
         cliente = clienteRepository.guardarCliente(cliente);
 
         return clientePresentacionMapper.domainToCreateResponse(cliente);
