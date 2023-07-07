@@ -2,13 +2,9 @@ package bbva.java2.minibanco_lab1.infraestructure.repositoryImpl;
 
 import bbva.java2.minibanco_lab1.application.repository.IClienteRepository;
 import bbva.java2.minibanco_lab1.domain.model.Cliente;
-import bbva.java2.minibanco_lab1.domain.model.Cuenta;
 import bbva.java2.minibanco_lab1.infraestructure.entities.ClienteEntity;
-import bbva.java2.minibanco_lab1.infraestructure.entities.CuentaEntity;
 import bbva.java2.minibanco_lab1.infraestructure.mapper.ClienteEntityMapper;
-import bbva.java2.minibanco_lab1.infraestructure.mapper.CuentaEntityMapper;
 import bbva.java2.minibanco_lab1.infraestructure.repositoryImpl.springdatajpa.IClienteSpringRepository;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -60,30 +56,17 @@ public class ClienteRepositoryImpl implements IClienteRepository {
 
         return clienteOptional;
     }
-
     @Override
-    public Cliente buscaClientePorEmail(String email) {
+    public Optional<Cliente> buscaClientePorEmail(String email) {
         Optional<ClienteEntity> clienteEntity = clienteSpringRepository.findByEmail(email);
-        Cliente cliente = null;
+        Optional<Cliente> clienteOptional = Optional.empty();
 
         if(clienteEntity.isPresent()) {
-            cliente = clienteMapper.entityToDomain(clienteEntity.get());
+            clienteOptional = Optional.ofNullable(clienteMapper.entityToDomain(clienteEntity.get()));
         }
 
-        return cliente;
+        return clienteOptional;
     }
-
-//    @Override
-//    public Optional<Cliente> buscaClientePorEmail(String email) {
-//        Optional<ClienteEntity> clienteEntity = clienteSpringRepository.findByEmail(email);
-//        Optional<Cliente> clienteOptional = Optional.empty();
-//
-//        if(clienteEntity.isPresent()) {
-//            clienteOptional = Optional.ofNullable(clienteMapper.entityToDomain(clienteEntity.get()));
-//        }
-//
-//        return clienteOptional;
-//    }
 
     @Override
     public boolean existeClientePorEmail(String email) {

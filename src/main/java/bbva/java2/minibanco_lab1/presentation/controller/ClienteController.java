@@ -7,12 +7,13 @@ import bbva.java2.minibanco_lab1.presentation.request.clienteReq.ClienteCreateRe
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/minibanco/cliente")
+@RequestMapping("/minibanco/clientes")
 @RequiredArgsConstructor
 public class ClienteController {
 
@@ -30,6 +31,19 @@ public class ClienteController {
 
         return new ResponseEntity<>(clienteUseCase.listarUnClienteConCuentas(dni), HttpStatus.OK);
     }
+
+    @GetMapping(value = "/listar", produces = "application/json")
+    public ResponseEntity<?> listarTodosLosCliente() {
+        // TODO implementar metodo en service y repository
+        return new ResponseEntity<>("Listar todos los clientes -> ROLE_ADMIN", HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/auth/listar", produces = "application/json")
+    public ResponseEntity<?> listarClienteAutenticado(Authentication auth) {
+        // TODO implementar metodo en las capas
+        return new ResponseEntity<>("listar al cliente autenticado -> ROLE_CLIENTE", HttpStatus.OK);
+    }
+
 
 
 }

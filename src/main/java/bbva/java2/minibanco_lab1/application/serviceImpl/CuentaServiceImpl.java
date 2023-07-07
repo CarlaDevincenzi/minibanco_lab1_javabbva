@@ -30,13 +30,13 @@ public class CuentaServiceImpl implements ICuentaUseCase {
 
     @Override
     public CuentaCreateResp guardarCuenta(CuentaCreateReq cuentaReq) {
-        Optional<Cliente> titular = clienteRepository.buscarClientePorId(cuentaReq.getTitular());
+        Optional<Cliente> titular = clienteRepository.buscaClientePorEmail(cuentaReq.getTitular());
 
         if(titular.isPresent()) {
             Cuenta cuenta = cuentaPresentacionMapper.requestToDomain(cuentaReq);
             cuenta.setNumeroCuenta(UUID.randomUUID().toString().substring(0, 15));
             cuenta.setSaldo(new BigDecimal("0.0"));
-            cuenta.setTitular(cuentaReq.getTitular());
+            cuenta.setTitular(titular.get().getIdCliente());
 
             Cuenta guardada = cuentaRepository.guardarCuenta(cuenta);
             return cuentaPresentacionMapper.domainToResponse(guardada);

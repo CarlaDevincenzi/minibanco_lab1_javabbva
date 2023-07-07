@@ -4,6 +4,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -43,6 +44,12 @@ public class ExceptionConfig {
     public ResponseEntity<?> userNotFoundException(UsernameNotFoundException ex){
 
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(MissingServletRequestParameterException.class)
+    public ResponseEntity<?> userNotFoundException(MissingServletRequestParameterException ex){
+
+        return new ResponseEntity<>("El parametro no puede ser nulo: " + ex.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
 

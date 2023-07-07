@@ -1,9 +1,6 @@
 package bbva.java2.minibanco_lab1.infraestructure.repositoryImpl;
 
-import bbva.java2.minibanco_lab1.application.repository.IClienteRepository;
 import bbva.java2.minibanco_lab1.application.repository.ICuentaRepository;
-import bbva.java2.minibanco_lab1.domain.enums.TipoTransaccionEnum;
-import bbva.java2.minibanco_lab1.domain.model.Cliente;
 import bbva.java2.minibanco_lab1.domain.model.Cuenta;
 import bbva.java2.minibanco_lab1.infraestructure.entities.ClienteEntity;
 import bbva.java2.minibanco_lab1.infraestructure.entities.CuentaEntity;
