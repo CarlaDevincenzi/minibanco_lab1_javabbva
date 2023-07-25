@@ -5,6 +5,7 @@ import bbva.java2.minibanco_lab1.domain.model.Cliente;
 import bbva.java2.minibanco_lab1.infraestructure.entities.ClienteEntity;
 import bbva.java2.minibanco_lab1.infraestructure.mapper.ClienteEntityMapper;
 import bbva.java2.minibanco_lab1.infraestructure.repositoryImpl.springdatajpa.IClienteSpringRepository;
+import bbva.java2.minibanco_lab1.presentation.response.exception.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -83,6 +84,16 @@ public class ClienteRepositoryImpl implements IClienteRepository {
     @Override
     public boolean existeClientePorId(Long id) {
         return clienteSpringRepository.existsById(id);
+    }
+
+    @Override
+    public void bajaCliente(String userEmail) {
+        Optional<ClienteEntity> clienteEntity = clienteSpringRepository.findByEmail(userEmail);
+        if(clienteEntity.isPresent()) {
+            clienteEntity.get().setAlta(false);
+        } else {
+            throw new NotFoundException("Cliente no encontrado");
+        }
     }
 
     @Override

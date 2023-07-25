@@ -15,6 +15,8 @@ public interface IClienteRepository {
     boolean existeClientePorEmail(String email);
     boolean existeClientePorDni(String dni);
     boolean existeClientePorId(Long id);
+
+    void bajaCliente(String userEmail);
     Cliente actualizarCliente(ClienteEntity cliente);
 
 }

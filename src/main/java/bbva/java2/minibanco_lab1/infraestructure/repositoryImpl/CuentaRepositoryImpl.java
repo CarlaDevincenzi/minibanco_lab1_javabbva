@@ -7,6 +7,7 @@ import bbva.java2.minibanco_lab1.infraestructure.entities.CuentaEntity;
 import bbva.java2.minibanco_lab1.infraestructure.mapper.CuentaEntityMapper;
 import bbva.java2.minibanco_lab1.infraestructure.repositoryImpl.springdatajpa.IClienteSpringRepository;
 import bbva.java2.minibanco_lab1.infraestructure.repositoryImpl.springdatajpa.ICuentaSpringRepository;
+import bbva.java2.minibanco_lab1.presentation.response.exception.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -69,5 +70,15 @@ public class CuentaRepositoryImpl implements ICuentaRepository {
         }
 
         return cuentaOptional;
+    }
+
+    @Override
+    public void bajaCuenta(Long idCuenta) {
+        Optional<CuentaEntity> cuenta = cuentaSpringRepository.findById(idCuenta);
+        if(cuenta.isPresent()) {
+            cuenta.get().setAlta(false);
+        } else {
+            throw new NotFoundException("Cuenta no encontrada");
+        }
     }
 }

@@ -1,7 +1,8 @@
 package bbva.java2.minibanco_lab1.domain.model;
 
-import lombok.*;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;

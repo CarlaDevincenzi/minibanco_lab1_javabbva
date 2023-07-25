@@ -1,5 +1,6 @@
 package bbva.java2.minibanco_lab1.presentation.controller;
 
+import bbva.java2.minibanco_lab1.application.usecase.IClienteUseCase;
 import bbva.java2.minibanco_lab1.application.usecase.ITransaccionUseCase;
 import bbva.java2.minibanco_lab1.presentation.request.transaccionReq.DebitoDepositoCreateReq;
 import bbva.java2.minibanco_lab1.presentation.request.transaccionReq.TransferenciaReq;
@@ -20,7 +21,7 @@ import javax.validation.Valid;
 public class TransaccionController {
 
     private final ITransaccionUseCase trService;
-
+    private final IClienteUseCase clienteService;
     @PostMapping(value = "auth/deposito", consumes = "application/json", produces = "application/json")
     public ResponseEntity<?> depositar(@Valid @RequestBody DebitoDepositoCreateReq req, Authentication auth) {
         req.setUserEmail(auth.getName());
@@ -30,6 +31,9 @@ public class TransaccionController {
     @PostMapping(value = "auth/debito", consumes = "application/json", produces = "application/json")
     public ResponseEntity<?> debitar(@Valid @RequestBody DebitoDepositoCreateReq req, Authentication auth) {
         req.setUserEmail(auth.getName());
+        if(!clienteService.esCuentaCliente(auth.getName(), req.getCuentaOrigen())) {
+            throw new RuntimeException("No es propietario de la cuenta para esta operacion");
+        }
         return new ResponseEntity<>(trService.deposito_debito_transaccion(req), HttpStatus.OK);
     }
 
@@ -37,6 +41,10 @@ public class TransaccionController {
     public ResponseEntity<?> transferir(@Valid @RequestBody TransferenciaReq transferenciaReq, Authentication auth) {
         transferenciaReq.getOrigenTr().setUserEmail(auth.getName());
         transferenciaReq.getDestinoTr().setUserEmail(auth.getName());
+
+        if(!clienteService.esCuentaCliente(auth.getName(), transferenciaReq.getOrigenTr().getCuentaOrigen())) {
+            throw new RuntimeException("No es propietario de la cuenta para esta operacion");
+        }
         return new ResponseEntity<>(trService.transferencia(transferenciaReq), HttpStatus.OK);
     }
 

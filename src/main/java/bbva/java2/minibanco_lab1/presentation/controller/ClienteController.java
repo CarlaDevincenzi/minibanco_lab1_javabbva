@@ -3,6 +3,7 @@ package bbva.java2.minibanco_lab1.presentation.controller;
 import bbva.java2.minibanco_lab1.application.usecase.IClienteUseCase;
 import bbva.java2.minibanco_lab1.presentation.mapper.ClientePresentacionMapper;
 import bbva.java2.minibanco_lab1.presentation.request.clienteReq.ClienteCreateReq;
+import bbva.java2.minibanco_lab1.presentation.request.clienteReq.ClienteUpdateReq;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -48,6 +49,19 @@ public class ClienteController {
         return new ResponseEntity<>(clienteUseCase.listarUnClienteConCuentas(auth.getName()), HttpStatus.OK);
     }
 
+    @DeleteMapping(value = "/auth/baja", produces = "application/json")
+    public ResponseEntity<?> bajaClienteAutenticado(Authentication auth) {
 
+        return new ResponseEntity<>(clienteUseCase.bajaCliente(auth.getName()), HttpStatus.OK);
+    }
+
+    @PatchMapping(value = "/auth/update", consumes = "application/json", produces = "application/json")
+    public ResponseEntity<?>updateClienteAutenticado(@Valid @RequestBody ClienteUpdateReq updateReq, Authentication auth) {
+        if(auth.getName().equals(updateReq.getEmail())) {
+            return new ResponseEntity<>(clienteUseCase.updateCliente(updateReq), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("Solo puede actualizar datos propios", HttpStatus.OK);
+        }
+    }
 
 }

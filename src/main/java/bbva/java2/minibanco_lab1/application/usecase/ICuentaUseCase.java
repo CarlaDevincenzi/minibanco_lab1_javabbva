@@ -19,4 +19,6 @@ public interface ICuentaUseCase {
 
     CuentaTransaccionesResp mostrarUnaCuentaConTransacciones(Long id);
     boolean igualTipoMoneda(Long idOrigen, Long idDestino);
+
+    String bajaCuenta(Long idCuenta);
 }

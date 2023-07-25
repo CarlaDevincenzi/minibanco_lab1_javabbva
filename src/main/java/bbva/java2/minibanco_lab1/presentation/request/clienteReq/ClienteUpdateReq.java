@@ -24,6 +24,10 @@ public class ClienteUpdateReq {
     @Pattern(regexp = "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$", message = "El email debe ser valido")
     private String email;
 
+    @Email
+    @Pattern(regexp = "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$", message = "El email debe ser valido")
+    private String nuevoEmail;
+
     @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#&()–[{}]:;',?/*~$^+=<>]).{8,20}$"
             ,message = "La contrasenia debe contener entre 8 y 20 caracteres, al menos 1 numero, 1 mayuscula," +
             " 1 minuscula y 1 caracter especial")

@@ -45,8 +45,12 @@ public class CuentaController {
     @PatchMapping(value = "/auth/agregar-cotitular", consumes = "application/json", produces = "application/json")
     public ResponseEntity<?> agregarCotitularCuentaAutenticado(@Valid @RequestBody CuentaAddCotitularReq addCotitularReq,
                                                                Authentication auth) {
-        // TODO ver cambio de implementacion para Cliente
-        return new ResponseEntity<>(cuentaUseCase.agregarCotitularAcuenta(addCotitularReq), HttpStatus.OK);
+
+        if(clienteUseCase.esTitular(auth.getName(), addCotitularReq.getIdCuenta())) {
+            return new ResponseEntity<>(cuentaUseCase.agregarCotitularAcuenta(addCotitularReq), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("Solo el titular de la cuenta puede agregar un cotitular", HttpStatus.BAD_REQUEST);
+        }
     }
 
     @GetMapping(value = "/listar/{id}", produces = "application/json")

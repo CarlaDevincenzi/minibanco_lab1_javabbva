@@ -112,4 +112,10 @@ public class CuentaServiceImpl implements ICuentaUseCase {
         return false;
     }
 
+    @Override
+    public String bajaCuenta(Long idCuenta) {
+        cuentaRepository.bajaCuenta(idCuenta);
+        return "Cuenta dada de baja con exito";
+    }
+
 }

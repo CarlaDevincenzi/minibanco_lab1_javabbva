@@ -13,4 +13,6 @@ public interface ICuentaRepository {
     Optional<Cuenta> buscarCuentaPorId(Long id);
     Optional<Cuenta> buscarCuentaPorNumeroCuenta(String numeroCta);
 
+    void bajaCuenta(Long idCuenta);
+
 }
