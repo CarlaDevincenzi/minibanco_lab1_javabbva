@@ -43,6 +43,10 @@ public class TransaccionServiceImpl implements ITransaccionUseCase {
         DebitoDepositoCreateReq origenTr = req.getOrigenTr();
         DebitoDepositoCreateReq destinoTr = req.getDestinoTr();
 
+        if(!cuentaService.igualTipoMoneda(origenTr.getCuentaOrigen(), destinoTr.getCuentaOrigen())) {
+            throw new RuntimeException("Las cuentas deben ser del mismo tipo de moneda");
+        }
+
         origenTr.setDescripcion(origenTr.getDescripcion().concat(destinoTr.getCuentaOrigen().toString()));
         destinoTr.setDescripcion(destinoTr.getDescripcion().concat(origenTr.getCuentaOrigen().toString()));
 
@@ -64,7 +68,7 @@ public class TransaccionServiceImpl implements ITransaccionUseCase {
         } catch(DineroInsuficienteException | NotFoundException e) {
             throw e;
         }
-        // ver de borrar el mapper si no se usa
+
         return trResponse;
     }
 }

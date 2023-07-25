@@ -37,6 +37,7 @@ public class CuentaServiceImpl implements ICuentaUseCase {
             cuenta.setNumeroCuenta(UUID.randomUUID().toString().substring(0, 15));
             cuenta.setSaldo(new BigDecimal("0.0"));
             cuenta.setTitular(titular.get().getIdCliente());
+            cuenta.setAlta(true);
 
             Cuenta guardada = cuentaRepository.guardarCuenta(cuenta);
             return cuentaPresentacionMapper.domainToResponse(guardada);
@@ -99,6 +100,16 @@ public class CuentaServiceImpl implements ICuentaUseCase {
             throw new NotFoundException("El numero de cuenta ingresado no pertenece a una cuenta registrada");
         }
         return cuentaOptional.get();
+    }
+    @Override
+    public boolean igualTipoMoneda(Long idOrigen, Long idDestino) {
+        Optional<Cuenta> origen = cuentaRepository.buscarCuentaPorId(idOrigen);
+        Optional<Cuenta> destino = cuentaRepository.buscarCuentaPorId(idDestino);
+
+        if(origen.isPresent() && destino.isPresent()) {
+            return origen.get().getMoneda().equals(destino.get().getMoneda());
+        }
+        return false;
     }
 
 }

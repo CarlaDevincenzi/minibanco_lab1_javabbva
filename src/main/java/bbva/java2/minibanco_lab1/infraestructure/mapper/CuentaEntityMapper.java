@@ -33,7 +33,7 @@ public class CuentaEntityMapper {
                 cuenta.getHistorialTransacciones().stream()
                         .map(tr -> trSpringRepository.findById(tr).get())
                         .toList());
-
+        cuentaEntity.setAlta(cuenta.isAlta());
         return cuentaEntity;
     }
 
@@ -47,7 +47,8 @@ public class CuentaEntityMapper {
                         cuentaEntity.getCotitular().getIdCliente() : null,
                 cuentaEntity.getHistorialTransacciones().stream()
                         .map(tr -> tr.getIdTransaccion())
-                        .toList());
+                        .toList(),
+                cuentaEntity.isAlta());
 
     }
 

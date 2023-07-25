@@ -1,20 +1,21 @@
 package bbva.java2.minibanco_lab1.application.repository;
 
 import bbva.java2.minibanco_lab1.domain.model.Cliente;
+import bbva.java2.minibanco_lab1.infraestructure.entities.ClienteEntity;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface IClienteRepository {
     Cliente guardarCliente(Cliente cliente);
-    List<Cliente> listarClientes();
+    List<Cliente> findAllClientes();
     Optional<Cliente> buscarClientePorId(Long idCliente);
     Optional<Cliente> buscaClientePorDni(String dni);
     Optional<Cliente> buscaClientePorEmail(String email);
     boolean existeClientePorEmail(String email);
     boolean existeClientePorDni(String dni);
     boolean existeClientePorId(Long id);
-    Cliente actualizarCliente(Cliente cliente);
+    Cliente actualizarCliente(ClienteEntity cliente);
 
 }
 

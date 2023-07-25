@@ -12,8 +12,8 @@ public class DebitoDepositoCreateReq {
 
     @NotNull(message = "Debe especificarse el tipo de transaccion")
     private TipoTransaccionEnum tipoTransaccion;
-    @NotNull(message = "Debe especificarse un cliente")
-    private Long idCliente;
+
+    private String userEmail;
     @NotNull(message = "Debe especificarse la cuenta origen")
     private Long cuentaOrigen;
     private String descripcion;

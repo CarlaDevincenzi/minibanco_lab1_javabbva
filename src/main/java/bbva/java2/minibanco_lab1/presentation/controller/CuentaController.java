@@ -1,11 +1,10 @@
 package bbva.java2.minibanco_lab1.presentation.controller;
 
+import bbva.java2.minibanco_lab1.application.usecase.IClienteUseCase;
 import bbva.java2.minibanco_lab1.application.usecase.ICuentaUseCase;
 import bbva.java2.minibanco_lab1.domain.enums.MonedaEnum;
-import bbva.java2.minibanco_lab1.presentation.mapper.CuentaPresentacionMapper;
 import bbva.java2.minibanco_lab1.presentation.request.cuentaReq.CuentaAddCotitularReq;
 import bbva.java2.minibanco_lab1.presentation.request.cuentaReq.CuentaCreateReq;
-
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +20,7 @@ import javax.validation.constraints.NotNull;
 public class CuentaController {
 
     private final ICuentaUseCase cuentaUseCase;
+    private final IClienteUseCase clienteUseCase;
 
     @PostMapping(value = "/crear", consumes = "application/json", produces = "application/json")
     public ResponseEntity<?> crearCuenta(@Valid @RequestBody CuentaCreateReq cuentaCreateReq) {
@@ -57,8 +57,11 @@ public class CuentaController {
 
     @GetMapping(value = "/auth/listar/movimientos-cuenta", produces = "application/json")
     public ResponseEntity<?> getMovimientosCuenta(@RequestParam Long id, Authentication auth) {
-        // TODO ver cambio de implementacion para Cliente
-        return new ResponseEntity<>(cuentaUseCase.mostrarUnaCuentaConTransacciones(id), HttpStatus.OK);
+        if(clienteUseCase.esCuentaCliente(auth.getName(), id)) {
+            return new ResponseEntity<>(cuentaUseCase.mostrarUnaCuentaConTransacciones(id), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("La cuenta no pertenece al cliente autenticado", HttpStatus.BAD_REQUEST);
+        }
     }
 
 }

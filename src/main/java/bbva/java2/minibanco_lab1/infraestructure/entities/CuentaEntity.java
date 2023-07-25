@@ -43,4 +43,7 @@ public class CuentaEntity {
     @Fetch(value = FetchMode.SUBSELECT)
     private List<TransaccionEntity> historialTransacciones;
 
+    @Column(nullable = false)
+    private boolean alta;
+
 }

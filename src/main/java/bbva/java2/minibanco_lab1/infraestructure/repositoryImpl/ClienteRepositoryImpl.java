@@ -28,9 +28,11 @@ public class ClienteRepositoryImpl implements IClienteRepository {
     }
 
     @Override
-    public List<Cliente> listarClientes() {
-        // TODO implementar
-        return null;
+    public List<Cliente> findAllClientes() {
+        return clienteSpringRepository.findAll()
+                .stream()
+                .map(cte -> clienteMapper.entityToDomain(cte))
+                .toList();
     }
 
     @Override
@@ -84,9 +86,9 @@ public class ClienteRepositoryImpl implements IClienteRepository {
     }
 
     @Override
-    public Cliente actualizarCliente(Cliente cliente) {
-        // TODO implementar
-        return null;
+    public Cliente actualizarCliente(ClienteEntity cliente) {
+        clienteSpringRepository.save(cliente);
+        return clienteMapper.entityToDomain(cliente);
     }
 
 }

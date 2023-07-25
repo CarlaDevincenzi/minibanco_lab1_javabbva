@@ -22,4 +22,5 @@ public class Cuenta {
     private Long titular;
     private Long cotitular;
     private List<Long> historialTransacciones = new ArrayList<>();
+    private boolean alta;
 }

@@ -52,5 +52,9 @@ public class ExceptionConfig {
         return new ResponseEntity<>("El parametro no puede ser nulo: " + ex.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(RuntimeException.class)
+    public ResponseEntity<?> runtimeException(RuntimeException ex){
 
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+    }
 }

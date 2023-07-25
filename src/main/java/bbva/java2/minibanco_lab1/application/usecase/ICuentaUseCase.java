@@ -18,5 +18,5 @@ public interface ICuentaUseCase {
     Cuenta buscarCuentaPorId(Long id);
 
     CuentaTransaccionesResp mostrarUnaCuentaConTransacciones(Long id);
-
+    boolean igualTipoMoneda(Long idOrigen, Long idDestino);
 }

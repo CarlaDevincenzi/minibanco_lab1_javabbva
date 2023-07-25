@@ -1,6 +1,5 @@
 package bbva.java2.minibanco_lab1.presentation.controller;
 
-
 import bbva.java2.minibanco_lab1.application.usecase.IClienteUseCase;
 import bbva.java2.minibanco_lab1.presentation.mapper.ClientePresentacionMapper;
 import bbva.java2.minibanco_lab1.presentation.request.clienteReq.ClienteCreateReq;
@@ -26,22 +25,27 @@ public class ClienteController {
         return new ResponseEntity<>(clienteUseCase.guardarCliente(clienteCreateReq), HttpStatus.OK);
     }
 
-    @GetMapping(value = "/listar/{dni}", produces = "application/json")
-    public ResponseEntity<?> listarUnCliente(@PathVariable String dni) {
+    @GetMapping(value = "/listar/{email}", produces = "application/json")
+    public ResponseEntity<?> listarUnCliente(@PathVariable String email) {
 
-        return new ResponseEntity<>(clienteUseCase.listarUnClienteConCuentas(dni), HttpStatus.OK);
+        return new ResponseEntity<>(clienteUseCase.listarUnClienteConCuentas(email), HttpStatus.OK);
     }
 
-    @GetMapping(value = "/listar", produces = "application/json")
-    public ResponseEntity<?> listarTodosLosCliente() {
-        // TODO implementar metodo en service y repository
-        return new ResponseEntity<>("Listar todos los clientes -> ROLE_ADMIN", HttpStatus.OK);
+    @GetMapping(value = "/listar-activos", produces = "application/json")
+    public ResponseEntity<?> listarClientesActivos() {
+
+        return new ResponseEntity<>(clienteUseCase.listarClientesActivos(), HttpStatus.OK);
     }
 
-    @GetMapping(value = "/auth/listar", produces = "application/json")
+    @GetMapping(value = "/listar-inactivos", produces = "application/json")
+    public ResponseEntity<?> listarClientesInactivos() {
+
+        return new ResponseEntity<>(clienteUseCase.listarClientesInactivos(), HttpStatus.OK);
+    }
+    @GetMapping(value = "/auth/ver-info", produces = "application/json")
     public ResponseEntity<?> listarClienteAutenticado(Authentication auth) {
-        // TODO implementar metodo en las capas
-        return new ResponseEntity<>("listar al cliente autenticado -> ROLE_CLIENTE", HttpStatus.OK);
+
+        return new ResponseEntity<>(clienteUseCase.listarUnClienteConCuentas(auth.getName()), HttpStatus.OK);
     }
 
 

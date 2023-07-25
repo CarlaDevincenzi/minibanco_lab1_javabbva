@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 public class DebitoDepositoResp {
     private Long idTransaccion;
     private TipoTransaccionEnum tipoTransaccion;
-    private Long idCliente;
+    private String userEmail;
     private LocalDateTime diahoraTransaccion;
     private Long cuentaOrigen;
     private String descripcion;

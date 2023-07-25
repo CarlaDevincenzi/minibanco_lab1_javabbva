@@ -20,6 +20,7 @@ public class Cliente {
     private String telefono;
     private List<Long> cuentasPropias = new ArrayList<>();
     private List<Long> cuentasCotituladas = new ArrayList<>();
+    private boolean alta;
 
     public Cliente(String nombre, String apellido, String dni, String email, String contrasenia, String domicilio, String telefono) {
         this.nombre = nombre;

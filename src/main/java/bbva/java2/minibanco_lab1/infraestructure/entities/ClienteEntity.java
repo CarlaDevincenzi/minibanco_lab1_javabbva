@@ -48,4 +48,6 @@ public class ClienteEntity {
     @Fetch(value = FetchMode.SUBSELECT)
     private List<CuentaEntity> cuentasCotituladas;
 
+    @Column(nullable = false)
+    private boolean alta;
 }

@@ -42,6 +42,7 @@ public class ClienteEntityMapper {
             cuentasCoti.add(cuentaMapper.domainToEntity(cuenta.get()));
         }
         clienteEntity.setCuentasCotituladas(cuentasCoti);
+        clienteEntity.setAlta(cliente.isAlta());
 
         return clienteEntity;
     }
@@ -69,6 +70,7 @@ public class ClienteEntityMapper {
             cuentasCoti.add(entity.getIdCuenta());
         }
         cliente.setCuentasCotituladas(cuentasCoti);
+        cliente.setAlta(clienteEntity.isAlta());
 
         return cliente;
     }
