@@ -1,0 +1,425 @@
+{
+	"info": {
+		"_postman_id": "88655cc6-5a0d-4e60-b225-531526ff599c",
+		"name": "java2_bbva",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "PUBLIC-crearCliente",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nombre\" : \"Carla\",\r\n    \"apellido\":\"Devincenzi\",\r\n    \"dni\": 32262458,\r\n    \"email\": \"anabellacarla@gmail.com\",\r\n    \"domicilio\": \"Penia 3147\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/minibanco/crear-cliente",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"minibanco",
+						"crear-cliente"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ADMIN-crearCuenta",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"moneda\" : \"USD\",\r\n    \"titular\" : 3\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/minibanco/cuenta/crear",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"minibanco",
+						"cuenta",
+						"crear"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ADMIN-listarCliente",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/minibanco/clientes/listar/25123456",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"minibanco",
+						"clientes",
+						"listar",
+						"25123456"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "addCotitularEnCuenta",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"idCuenta\" : 1,\r\n    \"idCotitular\" : 2\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/minibanco/cuenta/agregar-cotitular",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"minibanco",
+						"cuenta",
+						"agregar-cotitular"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CLIENT-depositar",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"idCliente\" : 2,\r\n    \"cuentaOrigen\" : 1,\r\n    \"descripcion\" : \"deposito en dolares\",\r\n    \"monto\" : \"300.00\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/minibanco/transaccion/deposito",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"minibanco",
+						"transaccion",
+						"deposito"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CLIENT-debitar",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"tipoTransaccion\" : \"DEBITO\",    \r\n    \"cuentaOrigen\" : 1,\r\n    \"descripcion\" : \"debito\",\r\n    \"monto\" : \"100.00\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/minibanco/transaccion/auth/debito",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"minibanco",
+						"transaccion",
+						"auth",
+						"debito"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUBLIC-login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/login?username=ironman@gmail.com&password=1ronm@nN",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"login"
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": "ironman@gmail.com"
+						},
+						{
+							"key": "password",
+							"value": "1ronm@nN"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ADMIN-listarClientesActivos",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/minibanco/clientes/listar/",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"minibanco",
+						"clientes",
+						"listar",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ADMIN-listarClientesInactivos",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/minibanco/clientes/listar/",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"minibanco",
+						"clientes",
+						"listar",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CLIENT-listarClienteAutenticado",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "CLIENT-crearCuentaAutenticado",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n   \"tipoMoneda\" : \"USD\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/minibanco/cuentas/auth/crear?tipoMoneda=USD",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"minibanco",
+						"cuentas",
+						"auth",
+						"crear"
+					],
+					"query": [
+						{
+							"key": "tipoMoneda",
+							"value": "USD"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CLIENT-auth_movimientosCuenta",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/minibanco/cuentas/auth/listar/movimientos-cuenta?id=1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"minibanco",
+						"cuentas",
+						"auth",
+						"listar",
+						"movimientos-cuenta"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CLIENT-transferencia",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n   \"origenTr\": {\r\n    \"tipoTransaccion\" : \"DEBITO\",\r\n    \"idCliente\" : 1,\r\n    \"cuentaOrigen\" : 1,\r\n    \"descripcion\" : \"debito\",\r\n    \"monto\" : \"100.00\"\r\n    },\r\n    \"destinoTr\": {\r\n        \"tipoTransaccion\" : \"DEBITO\",\r\n    \"idCliente\" : 1,\r\n    \"cuentaOrigen\" : 1,\r\n    \"descripcion\" : \"debito\",\r\n    \"monto\" : \"100.00\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CLIENT-agregar-cotitular",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"idCuenta\" : 1,\r\n    \"idCotitular\" : 2\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/minibanco/cuentas/auth/agregar-cotitular",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"minibanco",
+						"cuentas",
+						"auth",
+						"agregar-cotitular"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ADMIN-ver-movimientos-cuenta",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "minibanco/cuentas/listar/1",
+					"host": [
+						"minibanco"
+					],
+					"path": [
+						"cuentas",
+						"listar",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CLIENT-baja-cliente",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/minibanco/clientes/auth/baja",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"minibanco",
+						"clientes",
+						"auth",
+						"baja"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CLIENT-update-datos",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/minibanco/clientes/auth/update",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"minibanco",
+						"clientes",
+						"auth",
+						"update"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
